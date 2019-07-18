@@ -12,5 +12,9 @@ module.exports  = (api) => {
     },
   );
 
-  api.registerMethod('onStart1', () => console.log('this is test'));
+  api.registerMethod('onStart1');
+
+  api.onHook(() => {
+    console.log('plugin dev onHook');
+  })
 }

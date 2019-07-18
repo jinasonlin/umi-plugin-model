@@ -1,5 +1,8 @@
 class PluginAPI {
   constructor(id, service) {
+    console.log();
+    console.log(`PluginAPI ${id}`)
+
     this.id = id;
     this.service = service;
 
@@ -21,7 +24,11 @@ class PluginAPI {
   registerMethod(name) {
     console.log(`plugin register method ${name}`, Object.keys(this.service.methods), Object.keys(this.service.methods).map(method => !!this[method]));
 
-    if (this.service.methods[name] || this[name]) {
+    /**
+     * 仅通过 this[name] 判断是否已经注册这个方法存在一个问题，就是未使用 proxy 的上下文时，会反复更新内置的 method。
+     * 也就是上面每个 PluginAPI 的 addMethod 执行过程
+     */
+    if (/* this.service.methods[name] || */ this[name]) {
       console.log(`api.${name} exists.`);
       return;
     }
@@ -29,7 +36,7 @@ class PluginAPI {
     console.log(`plugin register method ${name} to service`);
 
     this.service.methods[name] = (fn) => {
-      console.log(`register hook ${name}`);
+      console.log(`plugin register hook ${name}`);
       this.register(name, fn);
     };
   }

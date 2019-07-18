@@ -1,6 +1,8 @@
 module.exports  = (api) => {
   const { service } = api;
 
+  api.registerMethod('onHook');
+
   api.onStart(() => {
     console.log('plugin hook onStart1');
   });
@@ -9,5 +11,8 @@ module.exports  = (api) => {
   });
   api.onStart(() => {
     console.log('plugin hook onStart3');
+  });
+  api.onStart(() => {
+    service.applyPlugins('onHook');
   });
 }

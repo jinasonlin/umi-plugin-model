@@ -12,5 +12,5 @@ module.exports  = (api) => {
     },
   );
 
-  api.registerMethod('onStart2', () => console.log('this is test'));
+  api.registerMethod('onStart2');
 }

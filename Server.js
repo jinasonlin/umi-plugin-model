@@ -37,6 +37,7 @@ class Server {
 
   applyPlugins(key, opts = {}) {
     console.log(`apply plugins ${key}`);
+
     return (this.hooks[key] || []).reduce((memo, { fn }) => {
       try {
         return fn({
